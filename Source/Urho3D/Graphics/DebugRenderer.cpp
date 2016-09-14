@@ -84,6 +84,7 @@ void DebugRenderer::SetView(Camera* camera)
     projection_ = camera->GetProjection();
     gpuProjection_ = camera->GetGPUProjection();
     frustum_ = camera->GetFrustum();
+    camera_ = camera;
 }
 
 void DebugRenderer::AddLine(const Vector3& start, const Vector3& end, const Color& color, bool depthTest)
@@ -100,6 +101,19 @@ void DebugRenderer::AddLine(const Vector3& start, const Vector3& end, unsigned c
         lines_.Push(DebugLine(start, end, color));
     else
         noDepthLines_.Push(DebugLine(start, end, color));
+}
+
+void DebugRenderer::AddLine2D(const Vector2& start, const Vector2& end, const Color& color, bool depthTest)
+{
+    AddLine2D(start, end, color.ToUInt(), depthTest);
+}
+
+void DebugRenderer::AddLine2D(const Vector2& start, const Vector2& end, unsigned color, bool depthTest )
+{
+    if (!camera_)
+        return;
+
+    AddLine(camera_->ScreenToWorldPoint(start), camera_->ScreenToWorldPoint(end), color, depthTest);
 }
 
 void DebugRenderer::AddTriangle(const Vector3& v1, const Vector3& v2, const Vector3& v3, const Color& color, bool depthTest)

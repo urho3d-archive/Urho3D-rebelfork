@@ -112,6 +112,10 @@ public:
     void AddLine(const Vector3& start, const Vector3& end, const Color& color, bool depthTest = true);
     /// Add a line with color already converted to unsigned.
     void AddLine(const Vector3& start, const Vector3& end, unsigned color, bool depthTest = true);
+    /// Add a line in 2D screen space.
+    void AddLine2D(const Vector2& start, const Vector2& end, const Color& color, bool depthTest = true);
+    /// Add a line in 2D screen space with color already converted to unsigned.
+    void AddLine2D(const Vector2& start, const Vector2& end, unsigned color, bool depthTest = true);
     /// Add a triangle.
     void AddTriangle(const Vector3& v1, const Vector3& v2, const Vector3& v3, const Color& color, bool depthTest = true);
     /// Add a triangle with color already converted to unsigned.
@@ -187,6 +191,8 @@ private:
     SharedPtr<VertexBuffer> vertexBuffer_;
     /// Line antialiasing flag.
     bool lineAntiAlias_;
+    /// Active camera.
+    WeakPtr<Camera> camera_;
 };
 
 }
