@@ -1,6 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <BuildDir Condition="'$(CMAKE_BINARY_DIR)' == ''">..\..\..\build</BuildDir>
@@ -8,14 +6,11 @@
     <OutputPath Condition="'$(OS)' != 'Unix'">$(BuildDir)\bin\$(Configuration)\</OutputPath>
     <OutputPath Condition="'$(OS)' == 'Unix'">$(BuildDir)\bin\</OutputPath>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-    <ProjectGuid>{0A84D2EB-5143-4B84-8287-09901C767178}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>102_CSharpProject</RootNamespace>
-    <AssemblyName>102_CSharpProject</AssemblyName>
-    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <IntermediateOutputPath>$(BuildDir)\obj\$(Configuration)\$(AssemblyName)</IntermediateOutputPath>
+    <BaseIntermediateOutputPath>$(BuildDir)\obj\$(Configuration)\$(AssemblyName)\</BaseIntermediateOutputPath>
+    <TargetFrameworks>net47;netstandard2.0</TargetFrameworks>
+    <Configurations>Debug;RelWithDebInfo;Release;MinSizeRel</Configurations>
+    <Platforms>x86;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -85,29 +80,14 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Numerics" />
-    <Reference Include="System.Numerics.Vectors" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <ProjectReference Include="..\..\Urho3D\CSharp\Urho3DNet.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Urho3D\CSharp\Urho3DNet.csproj">
-      <Project>{38913c81-4703-4652-b17b-823baa9b6508}</Project>
-      <Name>Urho3DNet</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
 </Project>
