@@ -23,6 +23,7 @@
 #pragma once
 
 #include "../Container/HashSet.h"
+#include "../Core/FlagSet.h"
 #include "../Core/Mutex.h"
 #include "../Core/Object.h"
 #include "../Container/List.h"
@@ -214,35 +215,35 @@ public:
     /// Return keycode from key name.
     int GetKeyFromName(const String& name) const;
     /// Return keycode from scancode.
-    int GetKeyFromScancode(int scancode) const;
+    int GetKeyFromScancode(Scancode scancode) const;
     /// Return name of key from keycode.
-    String GetKeyName(int key) const;
+    String GetKeyName(Key key) const;
     /// Return scancode from keycode.
-    int GetScancodeFromKey(int key) const;
+    int GetScancodeFromKey(Key key) const;
     /// Return scancode from key name.
     int GetScancodeFromName(const String& name) const;
     /// Return name of key from scancode.
-    String GetScancodeName(int scancode) const;
+    String GetScancodeName(Scancode scancode) const;
     /// Check if a key is held down.
-    bool GetKeyDown(int key) const;
+    bool GetKeyDown(Key key) const;
     /// Check if a key has been pressed on this frame.
-    bool GetKeyPress(int key) const;
+    bool GetKeyPress(Key key) const;
     /// Check if a key is held down by scancode.
-    bool GetScancodeDown(int scancode) const;
+    bool GetScancodeDown(Scancode scancode) const;
     /// Check if a key has been pressed on this frame by scancode.
-    bool GetScancodePress(int scancode) const;
+    bool GetScancodePress(Scancode scancode) const;
     /// Check if a mouse button is held down.
-    bool GetMouseButtonDown(int button) const;
+    bool GetMouseButtonDown(MouseButton button) const;
     /// Check if a mouse button has been pressed on this frame.
-    bool GetMouseButtonPress(int button) const;
+    bool GetMouseButtonPress(MouseButton button) const;
     /// Check if a mouse button was pressed and released without moving within a short duration of time.
-    bool GetMouseButtonClick(int button) const;
+    bool GetMouseButtonClick(MouseButton button) const;
     /// Check if a qualifier key is held down.
-    bool GetQualifierDown(int qualifier) const;
+    bool GetQualifierDown(Qualifier qualifier) const;
     /// Check if a qualifier key has been pressed on this frame.
-    bool GetQualifierPress(int qualifier) const;
+    bool GetQualifierPress(Qualifier qualifier) const;
     /// Return the currently held down qualifiers.
-    int GetQualifiers() const;
+    FlagSet<Qualifier> GetQualifiers() const;
     /// Return mouse position within window. Should only be used with a visible mouse cursor. Uses the backbuffer (Graphics width/height) coordinates.
     IntVector2 GetMousePosition() const;
     /// Return mouse movement since last frame.
@@ -325,9 +326,9 @@ private:
     /// Send an input focus or window minimization change event.
     void SendInputFocusEvent();
     /// Handle a mouse button change.
-    void SetMouseButton(int button, bool newState);
+    void SetMouseButton(MouseButton button, bool newState);
     /// Handle a key change.
-    void SetKey(int key, int scancode, bool newState);
+    void SetKey(Key key, Scancode scancode, bool newState);
     /// Handle mouse wheel change.
     void SetMouseWheel(int delta);
     /// Suppress next mouse movement.
@@ -380,11 +381,11 @@ private:
     /// Opened joysticks.
     HashMap<SDL_JoystickID, JoystickState> joysticks_;
     /// Mouse buttons' down state.
-    unsigned mouseButtonDown_;
+    FlagSet<MouseButton> mouseButtonDown_;
     /// Mouse buttons' pressed state.
-    unsigned mouseButtonPress_;
+    FlagSet<MouseButton> mouseButtonPress_;
     /// Mouse buttons' clicked state.
-    unsigned mouseButtonClick_;
+    FlagSet<MouseButton>  mouseButtonClick_;
     /// Position when last mouse button was pressed.
     IntVector2 mousePressPosition_;
     /// Time since last mouse press.

@@ -93,14 +93,14 @@ void DebugHud::RecalculateWindowPositions()
     posStats_ = WithinExtents({ui::GetStyle().WindowPadding.x, ui::GetStyle().WindowPadding.y});
 }
 
-void DebugHud::SetMode(unsigned mode)
+void DebugHud::SetMode(FlagSet<DebugHudMode> mode)
 {
     mode_ = mode;
 }
 
 void DebugHud::CycleMode()
 {
-    switch (mode_)
+    switch ((unsigned)mode_)
     {
     case DEBUGHUD_SHOW_NONE:
         SetMode(DEBUGHUD_SHOW_STATS);
@@ -123,7 +123,7 @@ void DebugHud::SetUseRendererStats(bool enable)
     useRendererStats_ = enable;
 }
 
-void DebugHud::Toggle(unsigned mode)
+void DebugHud::Toggle(FlagSet<DebugHudMode> mode)
 {
     SetMode(GetMode() ^ mode);
 }

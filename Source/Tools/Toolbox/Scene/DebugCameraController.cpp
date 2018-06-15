@@ -28,7 +28,7 @@ namespace Urho3D
 DebugCameraController::DebugCameraController(Context* context)
     : LogicComponent(context)
 {
-    SetUpdateEventMask(0);
+    SetUpdateEventMask(USE_NONE);
 }
 
 void DebugCameraController::Start()
